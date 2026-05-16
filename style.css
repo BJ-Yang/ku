@@ -1,0 +1,899 @@
+       :root {
+           --primary-color: #ffc107;
+           /* 活力黃 */
+           --accent-green: #a8b305;
+           /* 深色螢光綠 (白底用) */
+           --dark-color: #1a1a1a;
+           --light-bg: #f8f9fa;
+           --text-color: #333;
+           --transition: all 0.3s ease;
+           --white: #ffffff;
+           --nav-bg: #333333;
+           --bg-blue: #a9b7eb;
+           --c-blue: #649ccd;
+           --bg-pink: #FFF5F8;
+           --c-pink: #D97E96;
+           --bg-green: #F5FAF7;
+           --c-green: #5c9676;
+           --text-main: #3f3f3f;
+           --text-card: #555555;
+           --text-list: #514e4e0c;
+           --text-white:rgb(230, 230, 230);
+       }
+
+       body {
+           font-family: -apple-system, "Noto Sans TC", sans-serif;
+           margin: 0;
+           padding: 0;
+           background-color: #ffffff;
+           color: var(--text-main);
+           line-height: 1.6;
+       }
+
+       /* 導覽列：透過 container 限制寬度解決按鈕過大與重疊問題 */
+.navBar {
+    display:flex;
+    width: 100%;
+    background: rgba(14, 14, 14, 0.95); /* 半透明深色背景 */
+    backdrop-filter: blur(10px);        /* 模糊背後內容，增加質感 */
+    justify-content: space-between;     /* 左右分開（Logo在左，選單在右） */
+    color: #fff;
+    padding: 15px 10px;                    /* 上下間距15px 左右0 */
+    position: sticky;                   /* 關鍵：開啟黏貼定位 */
+    top: 0;                             /* 黏在螢幕最上方不隨捲軸消失 */
+    z-index: 5000;                       /* 確保層級夠高，不被內容遮擋 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 水平位移、垂直位移、模糊距離、擴散範圍(可省略)、顏色 */
+    white-space: nowrap; /* 強制內容絕對不斷行 */
+    align-items: center;                /* 垂直居中 */
+}
+
+#navBar {
+    display:flex;
+    position: sticky;                   /* 關鍵：開啟黏貼定位 */
+    top: 0;                             /* 黏在螢幕最上方不隨捲軸消失 */
+    justify-content: space-between;     /* 左右分開（Logo在左，選單在右） */
+    align-items: center;                /* 垂直居中 */
+    z-index: 5000;                       /* 確保層級夠高，不被內容遮擋 */
+
+}
+
+
+nav .container {
+    display: flex;                      /* 彈性佈局 */
+    justify-content: space-between;     /* 左右分開（Logo在左，選單在右） */
+    align-items: center;                /* 垂直居中 */
+}
+
+.logo {
+    font-size: 1.6rem;                  /* rem : 全名是 Root em，相對於根元素的比例,預設的根元素字體大小是 16px , 1.5rem = 16 *1.5 = 24px */
+    font-weight: 500;                   /*  字體粗細：設為 800 (特粗)，讓 Logo 或重點文字更醒目 */
+    color: var(--text-white);        /*  文字顏色：使用前面定義的變數，保持品牌色一致 */
+    text-decoration: none;              /* 3. 移除裝飾：去掉超連結預設的「底線」，讓外觀更簡潔專業 */
+}
+
+/* 導航選單列表 */
+nav ul {
+    width: 60%;
+    display: flex;                      /* 水平排列 */
+    list-style: none;                   /* 移除預設黑點 */
+    overflow-x: auto;                   /* 選項過多時支援左右滑動 */
+    overflow-y: hidden;                 /* 禁止上下滑動 */
+    white-space: nowrap;                /* 強制不換行 */
+    flex: 0 0 auto;
+    /* 針對不同瀏覽器隱藏捲軸（美化用） */
+    scrollbar-width: none;              /* Firefox */
+    -ms-overflow-style: none;           /* IE/Edge */
+}
+
+nav ul li a {
+    color: #eee;
+    text-decoration: none;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+/* 當前頁面的發亮效果 (配合 JS 使用) */
+nav ul li a.active {
+    color: var(--primary-color);        /* 變成活力黃 */
+    border-bottom: 2px solid var(--primary-color); /* 下方加底線 */
+    font-weight: bold;
+}
+
+nav ul li a:hover { color: var(--primary-color); }
+
+/* 漢堡選單圖示 (☰) */
+.menu-toggle {
+    font-size: 1.6rem;
+    cursor: pointer; /* 滑鼠手指icon */
+    padding: 5px 10px;
+}
+
+       /* 內容區塊排版：全部恢復 */
+       .block-wrapper {
+           padding: 40px 0;
+       }
+
+       .online {
+           background-color: var(--bg-blue);
+           margin-top: 5px;
+       }
+
+       .private {
+           background-color: var(--bg-pink);
+       }
+
+       .group {
+           background-color: var(--bg-green);
+       }
+
+       .container {
+           max-width: 600px;
+           margin: 0 auto;
+           padding: 0 25px;
+       }
+
+       h2 {
+           font-size: 24px;
+           font-weight: 700;
+           margin: 0 0 5px 0;
+           text-align: center;
+       }
+
+       .subtitle {
+           font-size: 13px;
+           font-weight: 900;
+           margin: 0 0 25px 0;
+           text-transform: uppercase;
+           text-align: center;
+       }
+
+       .online .subtitle {
+           color: var(--c-blue);
+       }
+
+       .private .subtitle {
+           color: var(--c-pink);
+       }
+
+       .group .subtitle {
+           color: var(--c-green);
+       }
+
+       .card {
+           background: #fff;
+           padding: 22px 28px;
+           border-radius: 10px;
+           margin-bottom: 25px;
+           border-left: 7px solid;
+           font-size: 16px;
+           color: var(--text-card);
+           text-align: left;
+       }
+
+       .card .core-text {
+           color: var(--text-main);
+           font-weight: 900;
+       }
+
+       .online .card {
+           border-left-color: var(--c-blue);
+       }
+
+       .private .card {
+           border-left-color: var(--c-pink);
+       }
+
+       .group .card {
+           border-left-color: var(--c-green);
+       }
+
+       /* 
+        ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+        li { margin-bottom: 14px; font-size: 15px; line-height: 1.5; color: var(--text-list); display: flex; align-items: flex-start; }
+         */
+       /* 圓點修正：靠近文字並精準上色 */
+       /* li::before { 
+            content: "·"; 
+            margin-right: 5px; 
+            font-weight: 900; 
+            font-size: 24px; 
+            line-height: 1; 
+        } */
+
+
+       .online li::before {
+           color: var(--c-blue);
+       }
+
+       .private li::before {
+           color: var(--c-pink);
+       }
+
+       .group li::before {
+           color: var(--c-green);
+       }
+
+       .bold-item {
+           font-weight: bold;
+           color: var(--text-main);
+       }
+
+       /* 頁尾位置上移 */
+       .footer {
+           padding: 10px 0 80px 0;
+           text-align: center;
+       }
+
+       .footer-msg {
+           color: #888888;
+           font-size: 14px;
+           margin-bottom: 15px;
+       }
+
+       .btn {
+           display: inline-block;
+           background-color: #333333;
+           color: #ffffff !important;
+           padding: 15px 75px;
+           text-decoration: none;
+           border-radius: 8px;
+           font-weight: bold;
+           font-size: 16px;
+       }
+
+
+       /* ==============================
+   1. 基礎設定與重設
+   ============================== */
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           font-family: 'Noto Sans TC', sans-serif;
+       }
+
+       body {
+           background-color: #fff;
+           color: #111;
+           overflow-x: hidden;
+           line-height: 1.6;
+       }
+
+ 
+
+       /* ==============================
+   3. 優惠條
+   ============================== */
+       .promo-bar {
+           background: #f5f5f5;
+           text-align: center;
+           padding: 12px;
+           font-size: 0.85rem;
+           border-bottom: 1px solid #eee;
+       }
+
+       /* ==============================
+   4. Hero 英雄視覺區
+   ============================== */
+       .hero {
+           position: relative;
+           height: 45vh;
+           background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+               url('https://plus.unsplash.com/premium_photo-1727443897454-3bc4675d868c?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+           background-size: cover;
+           background-position: center;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           text-align: center;
+           padding: 0 20px;
+       }
+
+       .hero-content h1 {
+           color: #fff;
+           font-size: 2rem;
+           font-weight: 400;
+           margin-bottom: 15px;
+           letter-spacing: -1px;
+       }
+
+       .hero-content p {
+           color: rgba(255, 255, 255, 0.9);
+           margin-bottom: 30px;
+       }
+
+       .hero-btns {
+           display: flex;
+           gap: 15px;
+           justify-content: center;
+           align-items: center;
+       }
+
+       /* ==============================
+   5. 通用按鈕系統
+   ============================== */
+       .btn {
+           padding: 12px 30px;
+           border-radius: 50px;
+           text-decoration: none;
+           font-weight: 500;
+           font-size: 1rem;
+           transition: 0.3s;
+           display: inline-block;
+           border: 2px solid transparent;
+       }
+
+       .btn-dark {
+           background: #111;
+           color: #fff !important;
+       }
+
+       .btn-outline {
+           background: transparent;
+           color: #fff !important;
+           border: 2px solid #fff;
+       }
+
+       .btn:hover {
+           opacity: 0.8;
+           transform: scale(1.05);
+       }
+
+       /* ==============================
+   6. 內容區塊 (回到較貼邊的間距)
+   ============================== */
+       .section {
+           padding: 40px 5%;
+           /* 回到 5% 的邊距，減少留白 */
+       }
+
+       .section-title {
+           font-size: 1.5rem;
+           margin-bottom: 5px;
+           font-weight: 500;
+       }
+
+       .grid-container {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+           gap: 20px;
+       }
+
+       .card {
+           background: #f9f9f9;
+           padding: 30px;
+           border-radius: 8px;
+       }
+
+
+       .course-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+           gap: 20px;
+       }
+
+       .course-item {
+           /*background: #111; */
+           color: #343434;
+           padding: 10px 15px;
+           border-radius: 8px;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+           min-height: 280px;
+       }
+
+       .course-item h3 {
+           font-size: 0.9rem;
+           font-weight: normal;
+           margin: 5px 0;
+       }
+
+       .course-info {
+           padding: 0 10;
+           /* 圖片已經有 margin 或 padding 了嗎？這裡控制文字的呼吸感 */
+           display: flex;
+           flex-direction: column;
+           height: 100%;
+           /* 確保內容區塊撐開 */
+       }
+
+       .course-info h3 {
+           margin: 5px 0 5px 0;
+           /* 增加標題與按鈕間的距離 */
+       }
+
+       .course-item img {
+           width: 100%;
+           /* 寬度撐滿卡片 */
+           height: 430px;
+           /* 強制設定統一高度，你可以根據需求調整數值 */
+           object-fit: cover;
+           /* 重要：自動裁切，保持比例不變形 */
+           display: block;
+           /* 移除圖片下方的微小間隙 */
+           border-radius: 5px;
+       }
+
+       .course-info span {
+           display: block;
+           /* 確保它獨佔一行 */
+           font-size: 1.3rem;
+           /* 控制字體大小，可以改為 14px 或 1rem */
+           font-weight: 400;
+           /* 字體粗細：400 是常規，700 是粗體，900 是極粗 */
+           color: #000000;
+           /* 字體顏色，Nike 風格常用中灰色 */
+           margin-bottom: 0px;
+           /* 與下方大標題的距離 */
+           /* text-transform: uppercase; 如果有英文，強制轉大寫 */
+       }
+
+       .course-info .btn {
+           /* 1. 核心修正：讓按鈕根據內容寬度縮放，不再撐滿 */
+           display: inline-block;
+           width: 40%;
+           align-self: flex-start;
+           /* 讓按鈕靠右對齊flex-end，置中center且寬度僅包圍文字 */
+
+           /* 2. 調整內距：讓按鈕看起來更修長、俐落 */
+           padding: 5px 5px;
+
+           /* 3. 字體調整 */
+           font-size: 0.9rem;
+           font-weight: 700;
+
+           /* 4. 如果你想讓它再小一點，可以設定寬度上限 */
+           /* width: auto; */
+           /* min-width: 120px; */
+
+           margin-top: auto;
+           /* 保持按鈕在底部對齊 */
+       }
+
+       /* ==============================
+   7. 側邊欄
+   ============================== */
+       .sidebar {
+           position: fixed;
+           top: 0;
+           right: 0;
+           width: 300px;
+           height: 100%;
+           background: #fff;
+           z-index: 5001;
+           padding: 20px 30px;
+           box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+           transition: transform 0.3s ease-in-out;
+           transform: translateX(100%);
+           display: flex;
+           flex-direction: column;
+       }
+
+       .sidebar.active {
+           transform: translateX(0);
+       }
+
+       .sidebar-header {
+           display: flex;
+           justify-content: flex-end;
+           margin-bottom: 30px;
+       }
+
+       .close-btn {
+           font-size: 1.5rem;
+           cursor: pointer;
+       }
+
+       .sidebar-links {
+           list-style: none;
+           flex-grow: 1;
+       }
+
+       .sidebar-links li {
+           margin-bottom: 25px;
+       }
+
+       .sidebar-links li a {
+           text-decoration: none;
+           color: #111;
+           font-size: 1.2rem;
+           font-weight: 400;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+
+       .sidebar-links li a span {
+           color: #ccc;
+           font-size: 1.5rem;
+       }
+
+       .overlay {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background: rgba(0, 0, 0, 0.4);
+           z-index: 1500;
+           display: none;
+       }
+
+       .overlay.active {
+           display: block;
+       }
+
+       /* ==============================
+   8. 廣告與手機適配
+   ============================== */
+       .ad-space {
+           display: none;
+           padding: 20px 5%;
+       }
+
+       .ad-placeholder {
+           background: #f0f0f0;
+           height: 100px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: #999;
+           font-size: 0.8rem;
+           border-radius: 4px;
+       }
+
+       @media (max-width: 768px) {
+           .nav-links {
+               display: none;
+           }
+
+           .hero-content h1 {
+               font-size: 2.2rem;
+           }
+
+           .hero-btns {
+               flex-direction: column;
+               width: 100%;
+           }
+
+           .btn {
+               width: 80%;
+               margin: 5px 0;
+           }
+       }
+
+       body.no-scroll {
+           overflow: hidden;
+       }
+
+       footer {
+           /* position: fixed; */
+           /* 固定定位：相對於瀏覽器視窗 */
+           color: var(--white);
+           bottom: 0;
+           /* 貼齊最下面 */
+           left: 0;
+           width: 100%;
+           height: 70px;
+           background:var(--dark-color);
+           z-index: 1000;
+           /* 確保在最上層 */
+       }
+
+
+       /* body { font-family: -apple-system, "Noto Sans TC", sans-serif; margin: 0; background-color: #fff; color: #333; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 500px; margin: 0 auto; padding: 30px 24px; }
+         */
+       /* 個人資訊區塊 - 參考 IMG_5555_10.jpg */
+       .profile-header {
+           display: flex;
+           align-items: center;
+           gap: 24px;
+           margin-bottom: 25px;
+       }
+
+       .avatar {
+           width: 95px;
+           height: 95px;
+           border-radius: 50%;
+           overflow: hidden;
+           border: 1px solid #f0f0f0;
+       }
+
+       .avatar img {
+           width: 100%;
+           height: 100%;
+           object-fit: cover;
+       }
+
+       .name-area h1 {
+           margin: 0;
+           font-size: 28px;
+           font-weight: 800;
+           display: flex;
+           align-items: baseline;
+           gap: 10px;
+       }
+
+       .en-name {
+           font-size: 13px;
+           color: #999;
+           font-weight: 400;
+           letter-spacing: 0.5px;
+       }
+
+       .affiliation {
+           color: #b5a442;
+           font-size: 11px;
+           font-weight: bold;
+           margin-top: 10px;
+       }
+
+       .social-links {
+           margin-top: 15px;
+           display: flex;
+           gap: 15px;
+       }
+
+       .social-links img {
+           width: 18px;
+           height: 18px;
+           opacity: 0.7;
+       }
+
+       /* 標題帶黃色底線 - 參考 IMG_5555_10.jpg */
+       .section-title {
+           font-size: 21px;
+           font-weight: 800;
+           margin: 45px 0 20px;
+       }
+
+       .section-title::after {
+           content: "";
+           display: block;
+           width: 32px;
+           margin-top: 10px;
+           border-radius: 2px;
+       }
+
+       /* PB 卡片樣式 */
+       .pb-card {
+           border: 1px solid #eeeeee;
+           border-radius: 16px;
+           padding: 25px 28px;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+       }
+
+       .pb-race {
+           font-size: 14px;
+           font-weight: bold;
+           color: #333;
+           margin-bottom: 6px;
+       }
+
+       .pb-rank {
+           font-size: 12px;
+           color: #888;
+           letter-spacing: 0.2px;
+       }
+
+       .pb-time {
+           font-size: 30px;
+           color: #b5a442;
+           font-weight: 800;
+           letter-spacing: -0.5px;
+       }
+
+       /* 經歷時間軸細節 - 參考 IMG_5555_10.jpg */
+       .timeline {
+           list-style: none;
+           padding: 0;
+           margin: 35px 0 60px 10px;
+           border-left: 1.5px solid #e0e0e0;
+       }
+
+       .timeline-item {
+           position: relative;
+           padding-left: 32px;
+           margin-bottom: 28px;
+       }
+
+       /* 實心圓圈圖示 */
+       .timeline-item::before {
+           content: "";
+           position: absolute;
+           left: -7px;
+           top: 6px;
+           width: 10px;
+           height: 10px;
+           background: #fff;
+           border: 2px solid #b5a442;
+           border-radius: 50%;
+       }
+
+       .event-info {
+           display: flex;
+           flex-direction: column;
+       }
+
+       .year-race {
+           display: flex;
+           gap: 12px;
+           align-items: baseline;
+       }
+
+       .year {
+           font-weight: 800;
+           font-size: 13px;
+           color: #333;
+           min-width: 35px;
+       }
+
+       .race-name {
+           font-size: 13px;
+           font-weight: 500;
+           color: #333;
+       }
+
+       .achievement {
+           font-size: 11px;
+           color: #b5a442;
+           font-weight: bold;
+           margin-top: 5px;
+           line-height: 1.4;
+       }
+
+       hr {
+           border: 0;
+           border-top: 1px solid #f5f5f5;
+           margin: 20px 0;
+       }
+
+
+       /* --- 教練資歷：個人主視覺 --- */
+       .coach-profile {
+           display: flex;
+           align-items: center;
+           gap: 30px;
+           padding: 40px 0;
+           border-bottom: 1px solid #eee;
+       }
+
+       .profile-image-wrapper {
+           flex-shrink: 0;
+           width: 150px;
+           height: 150px;
+           overflow: hidden;
+           border-radius: 50%;
+           border: 3px solid var(--accent-green);
+           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+       }
+
+       .profile-img {
+           width: 100%;
+           height: 100%;
+           object-fit: cover;
+           /* 保持比例填滿 */
+
+           /* 關鍵調整：將圖片顯示中心上移 */
+           /* center 代表水平置中，20% 代表垂直位置（數字越小越往頭部靠攏） */
+           object-position: center 70%;
+
+           transition: var(--transition);
+       }
+
+       /* 如果滑鼠移上去想要有一點動態感，可以加這個 */
+       .profile-image-wrapper:hover .profile-img {
+           transform: scale(1.1);
+           /* 輕微放大 */
+       }
+
+       .coach-info h1 {
+           font-size: 2.2rem;
+       }
+
+       .en-name {
+           font-size: 1.1rem;
+           color: #888;
+           margin-left: 10px;
+       }
+
+       .affiliation {
+           color: var(--accent-green);
+           font-weight: bold;
+           margin: 10px 0;
+       }
+
+       .social-links a {
+           color: #555;
+           font-size: 1.5rem;
+           margin-right: 15px;
+           transition: var(--transition);
+       }
+
+       .social-links a:hover {
+           color: var(--primary-color);
+       }
+
+       /* --- 教練資歷：PB 卡片 --- */
+       .pb-card {
+           background: #fdfdfd;
+           padding: 25px;
+           border-radius: 12px;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           border: 1px solid #eee;
+           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+           margin-bottom: 30px;
+       }
+
+       .pb-time {
+           font-size: 2.5rem;
+           font-weight: 900;
+           color: #b8860b;
+           /* 深金色，確保白底清晰 */
+       }
+
+       /* --- 教練資歷：時間軸經歷清單 --- */
+       .exp-list {
+           list-style: none;
+           padding: 0;
+           position: relative;
+       }
+
+       .exp-list::before {
+           content: '';
+           position: absolute;
+           left: 7px;
+           top: 10px;
+           bottom: 10px;
+           width: 2px;
+           background: linear-gradient(to bottom, var(--accent-green), #ddd);
+       }
+
+       .exp-list li {
+           display: flex;
+           position: relative;
+           padding: 0 0 25px 35px;
+       }
+
+       .exp-list li::after {
+           content: '';
+           position: absolute;
+           left: 0;
+           top: 5px;
+           width: 14px;
+           height: 14px;
+           background-color: #fff;
+           border: 2px solid var(--accent-green);
+           border-radius: 50%;
+           z-index: 2;
+       }
+
+       .year {
+           font-size: 1.1rem;
+           font-weight: 800;
+           color: #1a1a1a;
+           /* 深色文字 */
+           width: 60px;
+           flex-shrink: 0;
+       }
+
+       .desc {
+           line-height: 1.4;
+       }
+
+       .desc small {
+           display: block;
+           margin-top: 4px;
+           color: #d97706;
+           /* 琥珀橘色，白底對比度高 */
+           font-size: 0.95rem;
+           font-weight: 600;
+       }

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runner Service Center</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background-color: #ffffff; display: flex; flex-direction: column; align-items: center; }
+        
+        /* 導覽列：深灰色 #333333 */
+        .top-navbar {
+            background-color: #333333;
+            width: 100%;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-inner {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* 奶黃色拋物線頁首：完全依照圖 IMG_5595_15.jpg */
+        .playground-header {
+            background-color: #fcf6e3; 
+            border-bottom-left-radius: 50% 20%; 
+            border-bottom-right-radius: 50% 20%;
+            padding: 60px 35px 90px 35px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        
+        .title { color: #8b7355; font-size: 26px; font-weight: bold; margin: 0; }
+        .en-subtitle { color: #b5a442; font-size: 11px; margin: 5px 0 25px 0; letter-spacing: 1.5px; }
+        
+        .cta-button {
+            background-color: #ffffff;
+            color: #d47a3c; 
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 35px;
+        }
+
+        .copywriting {
+            font-size: 12.5px;
+            line-height: 1.9;
+            color: #666666;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .footer-info {
+            font-size: 10px;
+            color: #aaaaaa;
+            line-height: 1.6;
+        }
+
+        /* 表單區域與配色 */
+        .form-container { width: 100%; max-width: 500px; padding: 40px 35px; box-sizing: border-box; }
+        .field { margin-bottom: 25px; }
+        
+        label { 
+            display: block; 
+            font-weight: bold; 
+            margin-bottom: 12px; 
+            color: #444444; 
+            font-size: 15px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            background-color: #fafafa;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* 送出按鈕：深咖啡色 #554d44 */
+        .submit-btn {
+            width: 100%;
+            background-color: #554d44;
+            color: #ffffff;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .captcha-area { display: flex; align-items: center; gap: 12px; }
+        .captcha-code { background: #f4f4f4; padding: 11px 18px; border-radius: 8px; font-weight: bold; letter-spacing: 4px; }
+    </style>
+</head>
+<body>
+
+    <nav class="top-navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-link">教練資歷</a>
+            <a href="courses.html" class="nav-link">課程簡介</a>
+            <!-- 恢復頁面連結內容 -->
+            <a href="pace_tool.html" class="nav-link">配速工具</a>
+            <a href="training_log.html" class="nav-link">訓練日誌</a>
+            <a href="race_log.html" class="nav-link">賽事日誌</a>
+        </div>
+    </nav>
+
+    <header class="playground-header">
+        <h1 class="title">跑者能量補給站</h1>
+        <div class="en-subtitle">RUNNERS ENERGY STATION</div>
+        <div class="cta-button">讓我們聽見您的腳步聲</div>
+        <div class="copywriting">
+            無論您是因突破個人最佳成績而興奮，亦或是正處於受傷低潮，有任何想回饋的想法，歡迎隨時聯繫我們。<br><br>
+            您的回饋是我們進化的動力，您的提問是我們探索的方向，若您在訓練的路上遇到瓶頸，或者發現我們能做得更好的地方，請告訴我們。<br><br>
+            讓我們一起朝更好的方向邁進，讓這份對跑步熱愛，連結每一個熱血的靈魂。<br><br>
+            希望這裡不只是起點，更是跑者們的補給站 ◡̈
+        </div>
+        <div class="footer-info">
+            客服服務時間：週一至週五 09:00-18:00<br>
+            跑者不停息，但小編需要一些運動時間
+        </div>
+    </header>
+
+    <div class="form-container">
+        <div class="field">
+            <label>姓名 / Name</label>
+            <input type="text" placeholder="請輸入您的姓名">
+        </div>
+
+        <div class="field">
+            <label>電子信箱 / E-mail</label>
+            <input type="email" placeholder="runner@gmail.com">
+        </div>
+
+        <div class="field">
+            <label>跑者屬性 / Runner Type</label>
+            <select>
+                <option value="">請選擇 / Please Select</option>
+                <option value="beginner">新手跑者 / Beginner Runner</option>
+                <option value="half-marathon">半馬跑者 / Half Marathon Runner</option>
+                <option value="marathon">全馬跑者 / Full Marathon Runner</option>
+                <option value="ultra-trail">超馬/越野跑者 / Ultra & Trail Runner</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>最佳成績 / Personal Best</label>
+            <input type="text" placeholder="例如：全馬3:30:00">
+        </div>
+
+        <div class="field">
+            <label>目標成績 / Target Goal</label>
+            <input type="text" placeholder="例如：全馬2:59:59">
+        </div>
+
+        <div class="field">
+            <label>穿戴配備 / Wearable Device</label>
+            <input type="text" placeholder="例如：Garmin, Apple Watch, Coros">
+        </div>
+
+        <div class="field">
+            <label>您的問題 / Your Inquiry</label>
+            <textarea placeholder="每一滴汗水，都值得被聽見..."></textarea>
+        </div>
+
+        <div class="field">
+            <label>驗證碼 / Verification Code</label>
+            <div class="captcha-area">
+                <input type="text" style="width: 90px;" placeholder="輸入碼">
+                <div class="captcha-code">1 8 0 X</div>
+            </div>
+        </div>
+
+        <button type="button" class="submit-btn">送出表單 / Submit Form</button>
+    </div>
+
+</body>
+</html>
