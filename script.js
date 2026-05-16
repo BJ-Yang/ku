@@ -104,3 +104,12 @@ function closeSidebar() {
 menuOpen.addEventListener('click', openSidebar);
 menuClose.addEventListener('click', closeSidebar);
 overlay.addEventListener('click', closeSidebar); // 點擊深色遮罩也能關閉
+
+// 監聽網頁顯示事件（包含從瀏覽器快取/按上一頁回復的情況）
+window.addEventListener('pageshow', function (event) {
+    // event.persisted 如果是 true，代表網頁是從瀏覽器的記憶體暫存（BFCache）拉出來的
+    if (event.persisted) {
+        // 直接執行你寫好的關閉選單函式，把所有狀態一次重設！
+        closeSidebar();
+    }
+});
