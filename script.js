@@ -1,12 +1,14 @@
-    window.onload=function(){
-      document.getElementById("navBar").innerHTML =`<nav class="navBar">
+window.onload = function () {
+    // === 1. 渲染導覽列 ===
+    document.getElementById("navBar").innerHTML = `
+    <nav class="navBar">
         <div class="logo">風火倫の進擊</div>
         <div class="menu-toggle" id="menuOpen">☰</div>
     </nav>`;
 
-
-    
-      document.getElementById("sliderMenu").innerHTML =`    <div class="sidebar" id="sidebar">
+    // === 2. 渲染側邊欄 ===
+    document.getElementById("sliderMenu").innerHTML = `    
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="close-btn" id="menuClose">✕</div>
         </div>
@@ -23,7 +25,7 @@
         </div>
     </div>`;
 
-    // --- 4. 側邊欄選單控制 (Sidebar Control) ---
+    // === 3. 側邊欄選單控制 (DOM 元素必須在 innerHTML 執行完後才抓得到) ===
     const menuOpen = document.getElementById('menuOpen');
     const menuClose = document.getElementById('menuClose');
     const sidebar = document.getElementById('sidebar');
@@ -32,83 +34,51 @@
 
     // 開啟選單函式
     function openSidebar() {
-        sidebar.classList.add('active');     // 讓選單從旁邊滑入
-        overlay.classList.add('active');     // 顯示深色遮罩
-        body.classList.add('no-scroll');    // 防止背景網頁跟著捲動 (需配合 CSS overflow: hidden)
+        console.log('click open side menu------');
+        if (sidebar) sidebar.classList.add('active');     // 加上安全防護防 null
+        if (overlay) overlay.classList.add('active');     
+        body.classList.add('no-scroll');    
     }
 
     // 關閉選單函式
     function closeSidebar() {
-        sidebar.classList.remove('active');  // 讓選單滑出畫面
-        overlay.classList.remove('active');  // 隱藏深色遮罩
-        body.classList.remove('no-scroll'); // 恢復背景網頁捲動
+        if (sidebar) sidebar.classList.remove('active');  
+        if (overlay) overlay.classList.remove('active');  
+        body.classList.remove('no-scroll'); 
     }
 
-    // 綁定點擊事件
-    menuOpen.addEventListener('click', openSidebar);   // 點擊 ☰ 開啟
-    menuClose.addEventListener('click', closeSidebar); // 點擊 ✕ 關閉
-    overlay.addEventListener('click', closeSidebar);   // 點擊背景遮罩也能關閉
+    // 綁定點擊事件 (防禦性寫法：確定抓得到元件才綁定)
+    if (menuOpen) menuOpen.addEventListener('click', openSidebar);   
+    if (menuClose) menuClose.addEventListener('click', closeSidebar); 
+    if (overlay) overlay.addEventListener('click', closeSidebar);   
 
+    // 監聽網頁顯示事件（處理上一頁快取回復的情況）
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            closeSidebar();
+        }
+    });
+}
 
-    }
-
-    
-
-
-// 平滑捲動效果
+// === 4. 平滑捲動效果 (不依賴動態生成的標籤，可以放外面) ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
     });
 });
 
-// 簡單的導覽列陰影效果
+// === 5. 簡單的導覽列陰影效果 ===
 window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-    } else {
-        navbar.style.boxShadow = 'none';
-    }
-});
-
-const menuOpen = document.getElementById('menuOpen');
-const menuClose = document.getElementById('menuClose');
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('overlay');
-const body = document.body;
-
-// 開啟選單
-function openSidebar() {
-    console.log('click open side menu------');
-    sidebar.classList.add('active');
-    overlay.classList.add('active');
-    body.classList.add('no-scroll'); // 防止底層網頁捲動
-
-    
-
-
-}
-
-// 關閉選單
-function closeSidebar() {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-    body.classList.remove('no-scroll');
-}
-
-menuOpen.addEventListener('click', openSidebar);
-menuClose.addEventListener('click', closeSidebar);
-overlay.addEventListener('click', closeSidebar); // 點擊深色遮罩也能關閉
-
-// 監聽網頁顯示事件（包含從瀏覽器快取/按上一頁回復的情況）
-window.addEventListener('pageshow', function (event) {
-    // event.persisted 如果是 true，代表網頁是從瀏覽器的記憶體暫存（BFCache）拉出來的
-    if (event.persisted) {
-        // 直接執行你寫好的關閉選單函式，把所有狀態一次重設！
-        closeSidebar();
+    const navbar = document.querySelector('.navBar'); // 注意：你上面 innerHTML 寫的是大寫 .navBar，這裡同步修正
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        } else {
+            navbar.style.boxShadow = 'none';
+        }
     }
 });

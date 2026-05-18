@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配速工具 - 跑班訓練營</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* 保持原有的 CSS 邏輯 */
+        .tResult {
+            background-color: #f8f9fa;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            min-width: 100px;
+            font-weight: bold;
+        }
+
+        .sSum {
+            display: inline-block;
+            padding: 10px;
+            font-size: larger;
+            border-radius: 35px;
+        }
+
+        .div-all {
+            width: 100%;
+            background: rgb(255, 255, 255);
+            margin-top: 10px;
+            margin-left: 10px;
+            display: inline-block;
+            padding: 10px;
+        }
+
+        .div-area {
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+ 
+</head>
+
+<body>
+    <div id="navBar"></div>
+    <div id="sliderMenu"></div>
+    <div class="overlay" id="overlay"></div>
+    <section class="container">
+                    <div class="div-area">
+                <div style="width: 300px; margin: 20px auto;">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+            </div>
+        <div class="div-all">
+            <div class="div-area">
+                <h2>配速工具</h2>
+                <h3>跑步完賽時間預測</h3>
+                <div class="sSum">距離</div>
+                <input type="number" id="tBase" placeholder="公里" value="10" />
+                <div class="sSum">km</div>
+                <p>
+
+                <div class="sSum">配速</div>
+                <input type="number" id="tMin" placeholder="分" value="4" style="width: 60px;" />
+                <div class="sSum">'</div>
+                <input type="number" id="tSec" placeholder="秒" value="50" style="width: 60px;" />
+                <div class="sSum">"</div>
+                <p>
+                <p>
+                <div class="sSum">時間：&emsp;<label id="tResult" class="tResult" style="color: #81d9db;">--:--:--</label></div>
+                <p>
+                
+                    <input type="button" value="計算" onclick="fnT()" class="btn" />
+                </p>
+                <p style="margin-top: 20px;">預估完賽時間：&emsp;<br>
+                    <label id="tResultList" class="tResult" style="color: #666;">--:--:--</label>
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+       <script>
+        // 【核心重點】全域變數必須宣告在函式外面，才能跨次儲存圖表狀態
+        var chartInstance = null;
+
+        function fnT() {
+            // 1. 取得數值：距離(km)、配速(分)、配速(秒)
+            var rDist = parseFloat(document.getElementById("tBase").value);
+            var rMin = parseInt(document.getElementById("tMin").value);
+            var rSec = parseInt(document.getElementById("tSec").value);
+
+            var rResult = document.getElementById("tResult");
+
+            // 2. if...else 防呆邏輯
+            if (isNaN(rDist) || isNaN(rMin) || isNaN(rSec)) {
+                rResult.innerHTML = "請輸入完整跑步數據";
+                rResult.style.color = "red";
+            }
+            else if (rDist <= 0 || (rMin === 0 && rSec === 0)) {
+                rResult.innerHTML = "數據不合理喔";
+                rResult.style.color = "orange";
+            }
+            else {
+                // 3. 核心計算：總秒數 = 距離 * (分鐘 * 60 + 秒)
+                var totalSeconds = rDist * (rMin * 60 + rSec);
+
+                // 4. 時間換算邏輯
+                var h = Math.floor(totalSeconds / 3600);
+                var m = Math.floor((totalSeconds % 3600) / 60);
+                var s = Math.floor(totalSeconds % 60);
+
+                // 5. 顯示結果 (格式化：不足兩位不補零，保持簡單教學)
+                rResult.innerHTML = h + "小時 " + m + "分 " + s + "秒";
+                rResult.style.color = "green";
+
+                // 6. 呼叫繪圖功能：傳入目前公里數與全馬剩餘距離
+                drawChart(rDist, 42.195 - rDist);
+            }
+            fnList();
+        }
+
+        function drawChart(run, remain) {
+            var ctx = document.getElementById('myPieChart').getContext('2d');
+
+            // 銷毀舊圖表：防止新舊圖表在畫布上重疊導致閃爍
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            // 建立新圓餅圖
+            chartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['本次目標 (km)', '距離全馬差 (km)'],
+                    datasets: [{
+                        data: [run, remain > 0 ? remain : 0],
+                        backgroundColor: ['#ffc107', '#eeeeee'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        function fnList() {
+            // 1. 取得使用者設定的配速 (分與秒)
+            var rMin = parseInt(document.getElementById("tMin").value);
+            var rSec = parseInt(document.getElementById("tSec").value);
+            var tResultList = document.getElementById("tResultList");
+
+            // 2. 定義要計算的距離陣列 (km)
+            var distList = [1, 5, 10, 21.0975, 42.195];
+            var labels = ["1K", "5K", "10K", "半馬", "全馬"];
+
+            // 3. 清空原本的顯示內容，準備放入新列表
+            tResultList.innerHTML = "<h4>配速對照表：</h4>";
+            tResultList.style.color = "black";
+
+            // 4. 使用 for 迴圈跑遍陣列
+            // i 從 0 開始，直到小於 5 (因為有 5 個距離)
+            for (var i = 0; i < distList.length; i++) {
+
+                // 計算該距離的總秒數
+                var totalSeconds = distList[i] * (rMin * 60 + rSec);
+
+                // 換算時分秒
+                var h = Math.floor(totalSeconds / 3600);
+                var m = Math.floor((totalSeconds % 3600) / 60);
+                var s = Math.floor(totalSeconds % 60);
+
+                // 將結果「累加」到 HTML 中 (使用 +=)
+                if(Number.isNaN(h) || Number.isNaN(m) || Number.isNaN(s)){
+                    console.log("NaN-------h :"+h);
+                    console.log("NaN-------m :"+m);
+                    console.log("NaN-------s :"+s);
+                }
+                else{
+                    tResultList.innerHTML += labels[i] + " ： " + h + "時 " + m + "分 " + s + "秒<br>";
+                }                
+            }
+        }
+         fnT();
+    </script>
+    <script src="script.js"></script>    
+</body>
+
+</html>
