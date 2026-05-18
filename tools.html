@@ -16,8 +16,10 @@
             border-radius: 5px;
             border: 1px solid #ddd;
             display: inline-block;
-            min-width: 100px;
-            font-weight: bold;
+            width: 80%;
+            min-width: 450px;
+            font-size: large;
+            color: darkgreen;
         }
 
         .sSum {
@@ -29,6 +31,7 @@
 
         .div-all {
             width: 100%;
+            min-width: 500px;
             background: rgb(255, 255, 255);
             margin-top: 10px;
             margin-left: 10px;
@@ -37,14 +40,16 @@
         }
 
         .div-area {
-            width: 50%;
-            height: 100%;
-            float: left;
-        }
+           max-width: 600px;
+           margin: 0 auto;
+           padding: 0 25px;
+           /* display: flex; */
+           justify-content: center;
+       } 
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
- 
+
 </head>
 
 <body>
@@ -52,34 +57,33 @@
     <div id="sliderMenu"></div>
     <div class="overlay" id="overlay"></div>
     <section class="container">
-                    <div class="div-area">
-                <div style="width: 300px; margin: 20px auto;">
-                    <canvas id="myPieChart"></canvas>
-                </div>
+        <div class="div-area">
+            <div style="width: 300px; margin: 20px auto;">
+                <canvas id="myPieChart"></canvas>
             </div>
+        </div>
+        <hr>
         <div class="div-all">
             <div class="div-area">
                 <h2>配速工具</h2>
                 <h3>跑步完賽時間預測</h3>
                 <div class="sSum">距離</div>
-                <input type="number" id="tBase" placeholder="公里" value="10" />
-                <div class="sSum">km</div>
+                <input type="number" id="tBase" placeholder="公里" value="10" style="width: 60px;" />
+                km
                 <p>
-
                 <div class="sSum">配速</div>
-                <input type="number" id="tMin" placeholder="分" value="4" style="width: 60px;" />
+                <input type="number" id="tMin" placeholder="分" value="4" style="width: 40px;" />
                 <div class="sSum">'</div>
-                <input type="number" id="tSec" placeholder="秒" value="50" style="width: 60px;" />
-                <div class="sSum">"</div>
+                <input type="number" id="tSec" placeholder="秒" value="50" style="width: 40px;" />&emsp;"
                 <p>
+                <div class="sSum">時間：&emsp;<label id="tResult" class="tResult" style="color: #81d9db;">--:--:--</label>
+                </div>
                 <p>
-                <div class="sSum">時間：&emsp;<label id="tResult" class="tResult" style="color: #81d9db;">--:--:--</label></div>
-                <p>
-                
                     <input type="button" value="計算" onclick="fnT()" class="btn" />
-                </p>
-                <p style="margin-top: 20px;">預估完賽時間：&emsp;<br>
-                    <label id="tResultList" class="tResult" style="color: #666;">--:--:--</label>
+                    <hr>
+                <h3 style="margin-top: 20px;">預估完賽時間：&emsp;</h3>
+                <p>
+                <label id="tResultList" class="tResult">--:--:--</label>
                 </p>
 
 
@@ -89,7 +93,7 @@
         </div>
 
     </section>
-       <script>
+    <script>
         // 【核心重點】全域變數必須宣告在函式外面，才能跨次儲存圖表狀態
         var chartInstance = null;
 
@@ -184,19 +188,20 @@
                 var s = Math.floor(totalSeconds % 60);
 
                 // 將結果「累加」到 HTML 中 (使用 +=)
-                if(Number.isNaN(h) || Number.isNaN(m) || Number.isNaN(s)){
-                    console.log("NaN-------h :"+h);
-                    console.log("NaN-------m :"+m);
-                    console.log("NaN-------s :"+s);
+                if (Number.isNaN(h) || Number.isNaN(m) || Number.isNaN(s)) {
+                    console.log("NaN-------h :" + h);
+                    console.log("NaN-------m :" + m);
+                    console.log("NaN-------s :" + s);
                 }
-                else{
+                else {
                     tResultList.innerHTML += labels[i] + " ： " + h + "時 " + m + "分 " + s + "秒<br>";
-                }                
+                }
+
             }
         }
-         fnT();
+        fnT();
     </script>
-    <script src="script.js"></script>    
+    <script src="script.js"></script>
 </body>
 
 </html>
