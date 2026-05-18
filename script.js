@@ -19,7 +19,6 @@
             <li><a href="match.html">賽事日誌 <span>›</span></a></li>
         </ul>
         <div class="sidebar-footer">
-            <p>成為會員，獲得啟發並掌握運動界相關動態。</p>
             <button class="btn btn-dark">加入我們</button>
         </div>
     </div>`;

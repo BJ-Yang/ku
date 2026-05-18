@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>跑者能量補給站</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            margin: 0;
+            background-color: #ffffff;
+            color: #8D7353;
+        }
+
+        .nav-bar {
+            background-color: #333;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            text-align: center;
+        }
+        .nav-bar a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .nav-bar .cn { font-size: 16px; font-weight: bold; }
+        .nav-bar .en { font-size: 10px; opacity: 0.9; margin-top: 2px; text-transform: uppercase; }
+
+        .main-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .stadium-header {
+            background-color: #FFF9E7;
+            border: 1px solid #E6D5B8;
+            border-radius: 250px; 
+            padding: 40px 70px;  
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .title-main { font-size: 26px; font-weight: bold; margin: 0; }
+        
+        .title-sub-en { 
+            font-size: 12px; 
+            letter-spacing: 1px; 
+            margin: 5px 0 10px 0; 
+            color: #C5B08A; 
+            text-transform: uppercase;
+            white-space: nowrap; 
+        }
+        
+        .highlight-box {
+            background-color: #ffffff;
+            color: #D28B52;
+            padding: 6px 18px; 
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 16px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .description {
+            font-size: 13px;
+            text-align: justify;
+            margin: 0 auto;
+            color: #8D7353;
+            line-height: 1.6;
+        }
+        .description p { margin: 12px 0; }
+
+        .service-time {
+            font-size: 10px;
+            color: #C5B08A;
+            margin-top: 10px; 
+            line-height: 1.4;
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-label { font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block; color: #8D7353; }
+        
+        .input-box {
+            width: 100%;
+            padding: 6px 12px; 
+            border: 1px solid #F5EEDB;
+            background-color: #F9F5EA; 
+            border-radius: 10px;
+            box-sizing: border-box;
+            color: #333;
+            font-size: 13px;
+        }
+        
+        .input-box-large {
+            padding: 12px 14px;
+            font-size: 14px;
+        }
+
+        /* 驗證碼區塊：距離縮短至合適位置 */
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* 調整為更接近的距離 */
+        }
+        .captcha-input {
+            width: 70px !important;
+            padding: 6px 8px !important;
+            text-align: center;
+        }
+        .captcha-display {
+            background-color: #E8E8E8; 
+            padding: 6px 10px; 
+            border-radius: 6px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #333;
+            font-size: 12px;
+        }
+        .refresh-btn {
+            font-size: 18px;
+            color: #8D7353;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #4E4A46;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="navBar"></div>
+    <div id="sliderMenu"></div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- <nav class="nav-bar">
+        <a href="coach.html"><span class="cn">教練資歷</span><span class="en">Coach Profile</span></a>
+        <a href="courses.html"><span class="cn">課程簡介</span><span class="en">Course</span></a>
+        <a href="tools.html"><span class="cn">配速工具</span><span class="en">Pace Tool</span></a>
+        <a href="training.html"><span class="cn">訓練日誌</span><span class="en">Training Log</span></a>
+        <a href="match.html"><span class="cn">賽事日誌</span><span class="en">Race Log</span></a>
+    </nav> -->
+
+    <div class="main-container">
+        <div class="stadium-header">
+            <h1 class="title-main">跑者能量補給站</h1>
+            <p class="title-sub-en">RUNNERS ENERGY STATION</p>
+            
+            <div class="highlight-box">讓我們聽見您の腳步聲</div>
+            
+            <div class="description">
+                <p>無論您是因為突破個人最佳成績而興奮，亦或是正處於受傷低潮，有任何想回饋的想法，歡迎隨時聯繫我們唷。</p>
+                <p>您的回饋是我們進化的動力，您的提問是我們探索的方向，若您在訓練的路上遇到瓶頸，或者發現我們能做得更好的地方，請告訴我們。</p>
+                <p>讓我們一起朝更好的方向邁進，讓這份對跑步的熱愛，連結起每一個熱血的靈魂。</p>
+                <p>希望這裡不只是網站，更是跑者們的補給站。</p>
+            </div>
+
+            <div class="service-time">
+                服務時間：週一至週五 09:00-18:00<br>
+                （跑者不休息，但小編需要一些運動時間)
+            </div>
+        </div>
+
+        <form>
+            <div class="form-group">
+                <label class="form-label">姓名 / Name</label>
+                <input type="text" class="input-box" placeholder="請輸入您的姓名">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">電子信箱 / E-mail</label>
+                <input type="email" class="input-box" placeholder="runner@gmail.com">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">跑者屬性 / Runner Type</label>
+                <select class="input-box">
+                    <option value="">請選擇 / Please Select</option>
+                    <option value="beginner">新手跑者 / Beginner Runner</option>
+                    <option value="half">半馬跑者 / Half Marathoner</option>
+                    <option value="full">全馬跑者 / Full Marathoner</option>
+                    <option value="ultra">超馬/越野跑者 / Ultra & Trail Runner</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">最佳成績 / Personal Best</label>
+                <input type="text" class="input-box" placeholder="例如：全馬3:30:00">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">目標成績 / Target Goal</label>
+                <input type="text" class="input-box" placeholder="例如：全馬2:59:59">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">穿戴配備 / Wearable Device</label>
+                <input type="text" class="input-box" placeholder="例如：Garmin, Apple Watch, Coros">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">您的問題 / Your Inquiry</label>
+                <textarea class="input-box input-box-large" rows="5" placeholder="每一滴汗水，都值得被聽見..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">驗證碼 / Verification Code</label>
+                <div class="captcha-container">
+                    <input type="text" class="input-box captcha-input" placeholder="輸入碼">
+                    <div class="captcha-display" id="captcha">C 2 L 2</div>
+                    <button type="button" class="refresh-btn" onclick="refreshCaptcha()">↻</button>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">送出表單 / Submit Form</button>
+        </form>
+    </div>
+
+    <script>
+        function refreshCaptcha() {
+            const codes = ['C 2 L 2', 'R 8 T 4', 'P 9 X 1', 'M 5 K 7', 'A 3 Q 6'];
+            const display = document.getElementById('captcha');
+            display.innerText = codes[Math.floor(Math.random() * codes.length)];
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

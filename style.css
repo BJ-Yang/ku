@@ -9,7 +9,7 @@
            --transition: all 0.3s ease;
            --white: #ffffff;
            --nav-bg: #333333;
-           --bg-blue: #a9b7eb;
+           --bg-blue: #F5FBFE;
            --c-blue: #649ccd;
            --bg-pink: #FFF5F8;
            --c-pink: #D97E96;
@@ -111,7 +111,8 @@ nav ul li a:hover { color: var(--primary-color); }
 
        /* 內容區塊排版：全部恢復 */
        .block-wrapper {
-           padding: 40px 0;
+           padding: 30px 15px;
+           margin: 40px 0 ;
        }
 
        .online {
